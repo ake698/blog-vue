@@ -5,6 +5,9 @@ import HelloWorld from '@/components/HelloWorld'
 //导入组件
 import AppIndex from '@/components/home/AppIndex'
 import Login from '@/components/Login'
+import Home from '@/components/Home'
+import LibraryIndex from '@/components/library/LibraryIndex'
+import NavMenu from '@/components/common/NavMenu'
 
 Vue.use(Router)
 
@@ -12,23 +15,39 @@ export default new Router({
   mode:'history',
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    },
-    {
-      path: '/index',
-      name: 'AppIndex',
-      component: AppIndex,
-      //拦截页面
-      meta:{
-        requireAuth:true
-      }
+      path: '/home',
+      name: 'Home',
+      component: Home,
+      // home页面并不需要被访问
+      redirect: '/index',
+      children: [
+        {
+          path: '/index',
+          name: 'AppIndex',
+          component: AppIndex,
+          meta: {
+            requireAuth: true
+          }
+        },
+        {
+          path: '/library',
+          name: 'Library',
+          component: LibraryIndex,
+          meta: {
+            requireAuth: true
+          }
+        }
+      ]
     },
     {
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/nav',
+      name: 'NavMenu',
+      component: NavMenu
     },
   ]
 })
