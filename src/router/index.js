@@ -40,6 +40,12 @@ export default new Router({
       ]
     },
     {
+      path: '/',
+      name: 'index',
+      redirect:'/index',
+      component: AppIndex
+    },
+    {
       path: '/login',
       name: 'Login',
       component: Login

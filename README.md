@@ -16,6 +16,13 @@
 #### 2.2 library页面侧导航
 library 文件夹下 libraryindex为主页，其余为组件，与home.vue 引入上导航组件一样引入侧组件 sidemenu模块
 
+总结一下，当你通过点击选择侧边导航栏的一个标签后，发生了如下的动人的故事：
+
+* 触发 <el-menu> 组件的 @select 事件，执行 handleSelect 方法
+* handleSelect 方法触发 indexSelect 事件，并把 key，即 <el-menu-item> 标签的 index 属性的值赋给 data 中定义的属性，即分类码。
+* 父组件收到指令，执行事件对应的方法，即 listByCategory 方法
+发送请求，后端执行查询代码，返回数据，再通过 refs 修改 Books组件的 data 以动态渲染页面。
+
 
 
 ### 3. 个人感触

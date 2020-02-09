@@ -36,23 +36,22 @@
 </template>
 
 <script>
-    export default {
-      name: 'SideMenu',
-      data () {
-        return {
-          cid: ''
-        }
-      },
-      methods: {
-        // handleOpen (key, keyPath) {
-        //   console.log(key, keyPath)
-        // },
-        handleSelect (key, keyPath) {
-          this.cid = key
-          this.$emit('indexSelect')
-        }
+  export default {
+    name: 'SideMenu',
+    data () {
+      return {
+        cid: ''
+      }
+    },
+    methods: {
+      handleSelect (key, keyPath) {
+        this.cid = key
+        //emit，即触发，在子组件中使用 $emit 方法，即可触发在父组件中定义的事件。
+        //而这个 handleSelect 方法，则由 @select 事件触发。
+        this.$emit('indexSelect')
       }
     }
+  }
 </script>
 
 <style scoped>
@@ -65,3 +64,10 @@
   }
 </style>
 
+<!--
+总结一下，当你通过点击选择侧边导航栏的一个标签后，发生了如下的动人的故事：
+  触发 <el-menu> 组件的 @select 事件，执行 handleSelect 方法
+  handleSelect 方法触发 indexSelect 事件，并把 key，即 <el-menu-item> 标签的 index 属性的值赋给 data 中定义的属性，即分类码。
+  父组件收到指令，执行事件对应的方法，即 listByCategory 方法
+  发送请求，后端执行查询代码，返回数据，再通过 refs 修改 Books组件的 data 以动态渲染页面。
+-->

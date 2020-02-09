@@ -1,6 +1,6 @@
 <template>
     <el-menu
-      :default-active="'/index'"
+      :default-active="path"
       router
       mode="horizontal"
       background-color="white"
@@ -35,7 +35,16 @@
           {name: '/admin', navItem: '个人中心'}
         ],
         keywords: '',
-        path: ''
+        path: '/index'
+      }
+    },
+    mounted: function () {
+      this.getPathName()
+    },
+    methods:{
+      getPathName(){
+        var pathname = window.location.pathname;
+        this.path = pathname;
       }
     }
   }
