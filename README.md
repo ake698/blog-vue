@@ -1,4 +1,9 @@
-## 关于此项目笔记
+## 关于此项目说明
+
+### 项目依赖
+首先确保存在npm 和 vue环境
+安装Element　[组件说明]("http://element-cn.eleme.io/#/zh-CN/component/",组件说明)
+> npm i element-ui -S
 
 ### 1. 前端拦截器
   目前判断本地 Storage  是否存在 key 为user的对象来实现拦截
