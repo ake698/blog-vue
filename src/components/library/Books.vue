@@ -101,6 +101,7 @@
         // alert(id)
       },
       editBook (item) {
+        this.$refs.edit.loadCategory()
         this.$refs.edit.dialogFormVisible = true
         this.$refs.edit.form = {
           id: item.id,
@@ -111,7 +112,8 @@
           press: item.press,
           abs: item.abs,
           category: {
-            id: item.category.id.toString(),
+            //之前代码存在 toStirng 方法 和editform中选项value类型不同 导致无法显示绑定数据
+            id: item.category.id,
             name: item.category.name
           }
         }

@@ -8,11 +8,11 @@
       <i class="el-icon-menu"></i>
       <span slot="title">全部</span>
     </el-menu-item>
-    <el-menu-item index="1">
+    <el-menu-item v-for="category in categories" :key="category.id" :index="category.id.toString()">
       <i class="el-icon-menu"></i>
-      <span slot="title">文学</span>
+      <span slot="title">{{category.name}}</span>
     </el-menu-item>
-    <el-menu-item index="2">
+    <!-- <el-menu-item index="2">
       <i class="el-icon-menu"></i>
       <span slot="title">流行</span>
     </el-menu-item>
@@ -31,7 +31,7 @@
     <el-menu-item index="6">
       <i class="el-icon-menu"></i>
       <span slot="title">科技</span>
-    </el-menu-item>
+    </el-menu-item> -->
   </el-menu>
 </template>
 
@@ -40,16 +40,29 @@
     name: 'SideMenu',
     data () {
       return {
-        cid: ''
+        cid: '',
+        categories:[],
       }
     },
+    // mounted: function () {
+    //   this.loadCategory()
+    // },
     methods: {
       handleSelect (key, keyPath) {
         this.cid = key
         //emit，即触发，在子组件中使用 $emit 方法，即可触发在父组件中定义的事件。
         //而这个 handleSelect 方法，则由 @select 事件触发。
         this.$emit('indexSelect')
-      }
+      },
+      // loadCategory(){
+      //   this.$axios.get('/category').then(resp=>{
+      //     if (resp && resp.status === 200) {
+      //       this.categories = resp.data
+      //     }else{
+      //       this.$message.warning('获取目录失败！')
+      //     }
+      //   })
+      // }
     }
   }
 </script>

@@ -20,6 +20,9 @@
   export default {
     name: 'AppLibrary',
     components: {Books, SideMenu},
+    mounted: function () {
+        this.loadCategory()
+      },
     methods: {
       //分类这个功能的前端实现逻辑是，点击左侧导航栏，向后端发送一个带有参数的 get 请求，
       //然后同样是修改 data 里的数据以实现动态渲染。
@@ -30,6 +33,15 @@
         this.$axios.get(url).then(resp => {
           if (resp && resp.status === 200) {
             _this.$refs.booksArea.books = resp.data
+          }
+        })
+      },
+      loadCategory(){
+        this.$axios.get('/category').then(resp=>{
+          if (resp && resp.status === 200) {
+            this.$refs.sideMenu.categories = resp.data;
+          }else{
+            this.$message.warning('获取目录失败！')
           }
         })
       }

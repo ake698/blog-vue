@@ -1,6 +1,6 @@
 <template>
   <div>
-    <i class="el-icon-circle-plus-outline"  @click="dialogFormVisible = true"></i>
+    <i class="el-icon-circle-plus-outline" @click="loadCategory()"></i>
     <el-dialog
       title="添加/修改图书"
       :visible.sync="dialogFormVisible"
@@ -25,14 +25,14 @@
         <el-form-item label="简介" :label-width="formLabelWidth" prop="abs">
           <el-input type="textarea" v-model="form.abs" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="分类" :label-width="formLabelWidth" prop="cid">
-          <el-select v-model="form.category.id" placeholder="请选择分类">
-            <el-option label="文学" value="1"></el-option>
-            <el-option label="流行" value="2"></el-option>
+        <el-form-item label="分类" :label-width="formLabelWidth">
+          <el-select v-model="form.category" value-key="id" placeholder="请选择分类">
+            <el-option v-for="category in categories" :key="category.id" :label="category.name" :value="category"></el-option>
+            <!-- <el-option label="流行" value="2"></el-option>
             <el-option label="文化" value="3"></el-option>
             <el-option label="生活" value="4"></el-option>
             <el-option label="经管" value="5"></el-option>
-            <el-option label="科技" value="6"></el-option>
+            <el-option label="科技" value="6"></el-option> -->
           </el-select>
         </el-form-item>
         <el-form-item prop="id" style="height: 0">
@@ -55,6 +55,7 @@
     data () {
       return {
         dialogFormVisible: false,
+        categories:[],
         form: {
           id: '',
           title: '',
@@ -72,6 +73,13 @@
       }
     },
     methods: {
+      handlechange(val){
+        var obj = {}
+        obj = this.categories.find(function(item){
+          return item.id === val
+        })
+        this.form.category = obj;
+      },
       clear () {
         this.form = {
           id: '',
@@ -104,7 +112,17 @@
       },
       uploadImg () {
         this.form.cover = this.$refs.imgUpload.url
-        }
+        },
+      loadCategory(){
+        this.$axios.get('/category').then(resp=>{
+          if (resp && resp.status === 200) {
+            this.categories = resp.data
+            this.dialogFormVisible = true //显示form  必须要等ajax请求发完
+          }else{
+            this.$message.warning('获取目录失败！')
+          }
+        })
+      },
     }
   }
 </script>

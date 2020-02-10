@@ -24,6 +24,10 @@ library 文件夹下 libraryindex为主页，其余为组件，与home.vue 引�
 发送请求，后端执行查询代码，返回数据，再通过 refs 修改 Books组件的 data 以动态渲染页面。
 
 
+### 3. 开发过程报错例子
+#### 3.1 Invalid prop: custom validator check failed for prop index
+使用element-ui的菜单，在SubMenu Attribute中有一个index的属性，如果index的值从后端传入，则可能出现这个错误。 具体文件在sideMenu中，其分类是动态现实的，通过v-for来遍历，在index属性中值不能存在空格，且要为字符串类型，我传回来的值是id为整数型，所以只需要加上toString（）方法转换为字符串即可解决问题。
 
-### 3. 个人感触
+
+### 4. 个人感触
 第一次使用vue,主要通过边抄边看，具体参考原文      [原文链接](https://blog.csdn.net/Neuf_Soleil/article/details/88925013 "原文")
